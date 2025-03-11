@@ -1,0 +1,40 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore dependency directories
+node_modules/
+venv/
+__pycache__/
+target/
+build/
+dist/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.iml
+
+# Ignore environment/config files
+.env
+config.json
+secrets.json
+
+# Ignore compiled/binary files
+*.o
+*.so
+*.dll
+*.exe
+*.pyc
+*.class
+
+# Ignore specific project files
+*.db
+*.sqlite3
