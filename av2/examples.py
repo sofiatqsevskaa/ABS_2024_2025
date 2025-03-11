@@ -1,8 +1,10 @@
 import gymnasium as gym
 
 if __name__ == '__main__':
-    env = gym.make('FrozenLake-v1', render_mode='human',
-                   map_name='8x8', is_slippery=True)
+    #env = gym.make('FrozenLake-v1', render_mode='human',
+    #               map_name='8x8', is_slippery=True)
+
+    env = gym.make('Taxi-v3', render_mode='human')
     env.reset()
     env.render()
 
