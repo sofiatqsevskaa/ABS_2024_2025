@@ -10,17 +10,26 @@ if __name__ == '__main__':
 
     q_table = random_q_table(-1, 0, (num_states, num_actions))
 
-    learning_rate = 0.001
-    discount_factor = 0.1
+    learning_rates = [0.1, 0.01]
+    discount_factors = [0.5, 0.9]
     epsilon = 0.5
-    num_episodes = 10
+    num_episodes = [50, 100]
     num_steps_per_episode = 5
 
-    for episode in range(num_episodes):
+    sum_rewards = 0
+    average_reward = 0
+
+    sum_steps = 0
+    average_steps = 0
+
+    disc = 1
+    lear = 1
+    num = 1
+    for episode in range(num_episodes[num]):
         state, _ = env.reset()
-        for step in range(num_steps_per_episode):
-            action = get_random_action(env)  # 1
-            action = get_best_action(q_table, state)  # 2
+        while(True):
+            #action = get_random_action(env)
+            #action = get_best_action(q_table, state)
             action = get_action(env, q_table, state, epsilon)
 
             new_state, reward, terminated, _, _ = env.step(action)
@@ -28,10 +37,24 @@ if __name__ == '__main__':
             new_q = calculate_new_q_value(q_table,
                                           state, new_state,
                                           action, reward,
-                                          learning_rate, discount_factor)
+                                          learning_rates[lear], discount_factors[disc])
 
             q_table[state, action] = new_q
 
+            sum_rewards += reward
+
+            sum_steps += 1
+
             state = new_state
 
-            print()
+            if terminated:
+                break
+
+    average_reward = sum_rewards/num_episodes[num]
+    print(f"Average reward is {average_reward}")
+    average_steps = sum_steps/num_episodes[num]
+    print(f"Average number of steps is {average_steps}")
+
+    #By choosing a random action the agent doesn't perform well - the average reward is 0 no matter the learning rate or discount factor
+
+
