@@ -5,7 +5,7 @@ from q_learning import random_q_table
 
 def get_discrete_state(state, low_value, window_size):
     new_state = (state - low_value) / window_size
-    return tuple(new_state.astype(np.int))
+    return tuple(new_state.astype(int))
 
 
 if __name__ == '__main__':

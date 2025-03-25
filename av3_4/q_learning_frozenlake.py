@@ -67,8 +67,8 @@ if __name__ == '__main__':
         state, _ = env.reset()
         while(True):
             #action = get_random_action(env)
-            action = get_best_action(q_table, state)
-            #action = get_action(env, q_table, state, epsilon)
+            #action = get_best_action(q_table, state)
+            action = get_action(env, q_table, state, epsilon)
 
             new_state, reward, terminated, _, _ = env.step(action)
 
@@ -86,6 +86,7 @@ if __name__ == '__main__':
     average_steps = sum_steps/num_episodes[num]
     print(f"Average number of steps is {average_steps}")
 
-    #By choosing a random action the agent doesn't perform well - the average reward is 0 no matter the learning rate or discount factor
-    #Best action showed best results
+    #By choosing a random action the agent doesn't perform well - the average reward is close to 0 no matter the learning rate or discount factor
+    #Epsilon showed the best results
+    #The results were better after using the queue table, but still not great, because the number of iterations is small
 
