@@ -3,7 +3,7 @@ from q_learning import get_random_action, get_best_action, get_action, \
     random_q_table, calculate_new_q_value
 
 if __name__ == '__main__':
-    env = gym.make('FrozenLake-v1', render_mode='human')
+    env = gym.make('FrozenLake-v1')
 
     num_states = env.observation_space.n
     num_actions = env.action_space.n
@@ -29,8 +29,8 @@ if __name__ == '__main__':
         state, _ = env.reset()
         while(True):
             #action = get_random_action(env)
-            #action = get_best_action(q_table, state)
-            action = get_action(env, q_table, state, epsilon)
+            action = get_best_action(q_table, state)
+            #action = get_action(env, q_table, state, epsilon)
 
             new_state, reward, terminated, _, _ = env.step(action)
 
@@ -55,6 +55,37 @@ if __name__ == '__main__':
     average_steps = sum_steps/num_episodes[num]
     print(f"Average number of steps is {average_steps}")
 
-    #By choosing a random action the agent doesn't perform well - the average reward is 0 no matter the learning rate or discount factor
+    env = gym.make('FrozenLake-v1')
 
+    sum_rewards = 0
+    average_reward = 0
+
+    sum_steps = 0
+    average_steps = 0
+
+    for episode in range(num_episodes[num]):
+        state, _ = env.reset()
+        while(True):
+            #action = get_random_action(env)
+            action = get_best_action(q_table, state)
+            #action = get_action(env, q_table, state, epsilon)
+
+            new_state, reward, terminated, _, _ = env.step(action)
+
+            sum_rewards += reward
+
+            sum_steps += 1
+
+            state = new_state
+
+            if terminated:
+                break
+
+    average_reward = sum_rewards/num_episodes[num]
+    print(f"Average reward is {average_reward}")
+    average_steps = sum_steps/num_episodes[num]
+    print(f"Average number of steps is {average_steps}")
+
+    #By choosing a random action the agent doesn't perform well - the average reward is 0 no matter the learning rate or discount factor
+    #Best action showed best results
 
