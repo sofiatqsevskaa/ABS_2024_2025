@@ -16,7 +16,7 @@ def build_model(state_space_shape, num_actions):
 
 
 if __name__ == '__main__':
-    env = gym.make('MountainCar-v0', render_mode='human')
+    env = gym.make('MountainCar-v0')
     state_shape = env.observation_space.shape
     num_actions = env.action_space.n
 
@@ -26,11 +26,11 @@ if __name__ == '__main__':
     agent = DQN(state_shape, num_actions, model, target_model,
                 learning_rate=0.001, discount_factor=0.99)
 
-    num_episodes = 100
-    num_steps_per_episode = 100
+    num_episodes = 500
+    num_steps_per_episode = 200
     epsilon_start = 1.0
     epsilon_end = 0.01
-    epsilon_decay = 0.995
+    epsilon_decay = 0.9
 
     epsilon = epsilon_start
     rewards = []
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     print(
         f'Average reward over 100 episodes: {np.mean(rewards[-100:]):.2f}')
 
-    test_episodes = 50
+    test_episodes = 100
     total_rewards = []
     for _ in range(test_episodes):
         state, _ = env.reset()
@@ -86,8 +86,7 @@ if __name__ == '__main__':
     # The results are better than the Q-learning version, because the DQN is able to learn more complex policies.
     # The Q-learning version is limited by the size of the Q-table, while the DQN can learn from a larger state space and can generalize better.
     # The results were better the more episodes were run, as the DQN was able to learn more complex policies.
-
-    # Plotting the rewards
+    # Results were better with reduced E-decay
 
     import matplotlib.pyplot as plt
     plt.plot(rewards)
